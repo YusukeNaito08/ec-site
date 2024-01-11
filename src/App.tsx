@@ -7,22 +7,46 @@ import Checkout from "./pages/Checkout/Checkout";
 import OrderComplete from "./pages/OrderComplete/OrderComplete";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import { createGlobalStyle } from "styled-components";
+import { reset } from "styled-reset";
+import Notfound from "./pages/Notfound";
+
+const GlobalStyles = createGlobalStyle`
+  ${reset}
+
+  html {
+    font-size: 62.5%;
+  }
+
+  a {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+`;
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<ProductList />}></Route>
-        <Route path="/product/:productId" element={<ProductDetail />}></Route>
-        <Route path="/favorites/" element={<Favorites />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/checkout" element={<Checkout />}></Route>
-        <Route path="/complete" element={<OrderComplete />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<Register />}></Route>
-        {/* <Route path="*" element={<Notfound />}></Route> */}
-      </Routes>
-    </Router>
+    <>
+      <GlobalStyles />
+      <Router>
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/favorites/" element={<Favorites />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/complete" element={<OrderComplete />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Notfound />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

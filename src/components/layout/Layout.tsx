@@ -1,6 +1,5 @@
 import Footer from "../common/Footer";
 import Header from "../common/Header";
-import style from "styled-components";
 import React from "react";
 
 type Props = {
