@@ -8,22 +8,22 @@ const Header = () => {
   return (
     <HeaderWrap>
       <div className="inner">
-        <a className="logo" href="">
+        <Link className="logo" to={"/"}>
           <img src={logo} alt="Y's" loading="lazy" sizes="auto" />
-        </a>
-        <Nav>
+        </Link>
+        <Nav aria-label="グローバルナビゲーション">
           <ul>
             <li>
               <Link to={"/Login"}>ログイン</Link>
             </li>
             <li>
               <Link to={"/Favorites"}>
-                <img src={logo_favorite} alt="" loading="lazy" sizes="auto" />
+                <img src={logo_favorite} alt="お気に入り" loading="lazy" sizes="auto" />
               </Link>
             </li>
             <li>
               <Link to={"/Cart"}>
-                <img src={logo_cart} alt="" loading="lazy" sizes="auto" />
+                <img src={logo_cart} alt="カート" loading="lazy" sizes="auto" />
               </Link>
             </li>
           </ul>

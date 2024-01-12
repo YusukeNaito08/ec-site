@@ -11,24 +11,6 @@ import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
 import Notfound from "./pages/Notfound";
 
-const GlobalStyles = createGlobalStyle`
-  ${reset}
-
-  html {
-    font-size: 62.5%;
-  }
-
-  a {
-    display: block;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-`;
-
 function App() {
   return (
     <>
@@ -49,5 +31,34 @@ function App() {
     </>
   );
 }
+
+const GlobalStyles = createGlobalStyle`
+  ${reset}
+
+  html {
+    font-size: 62.5%;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  a {
+    display: block;
+    color: unset;
+    text-decoration: none;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+`;
 
 export default App;
