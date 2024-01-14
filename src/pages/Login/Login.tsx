@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Stack } from "@mui/material";
+import { FormLabel, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -21,13 +21,18 @@ const Login = () => {
                 ログイン
               </Typography>
               <form onSubmit={LoginAuth}>
-                <Stack spacing={6}>
+                <Stack spacing={2}>
+                  <FormLabel>メールアドレス</FormLabel>
                   <TextField required label="メールアドレス" type="email" />
+                  <FormLabel>パスワード</FormLabel>
                   <TextField required label="パスワード" type="password" />
                   <Button type="submit" color="primary" variant="contained" size="large" sx={{ color: "white" }}>
                     ログイン
                   </Button>
                 </Stack>
+                <Typography variant="subtitle1" sx={{ mt: 1 }} align="center">
+                  パスワードを忘れた方はこちら
+                </Typography>
               </form>
             </Grid>
             <Grid item xs={5}>
@@ -35,8 +40,8 @@ const Login = () => {
                 はじめてご利用の方
               </Typography>
               <Stack>
-                <Button variant="contained" size="large" sx={{ color: "white" }}>
-                  <Link to={"/register"}>新規会員登録</Link>
+                <Button variant="contained" size="large" sx={{ color: "white" }} component={Link} to={"/register"}>
+                  新規会員登録
                 </Button>
               </Stack>
             </Grid>
