@@ -7,6 +7,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { setUserLoggedIn } from "../../redux/users/userSlice";
+import { useDispatch } from "react-redux";
 
 interface RegisterForm {
   firstName: string;
@@ -26,6 +28,7 @@ interface RegisterForm {
 const Register = () => {
   const { handleSubmit, control } = useForm<RegisterForm>();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const RegisterAuth = async (data: RegisterForm) => {
     try {
@@ -47,6 +50,7 @@ const Register = () => {
         apartment: data.apartment,
       });
 
+      dispatch(setUserLoggedIn(user));
       navigate("/");
     } catch (error) {
       console.log(error);

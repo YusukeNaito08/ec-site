@@ -5,11 +5,33 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { FormLabel, Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { setUserLoggedIn } from "../../redux/users/userSlice";
+import { useForm, Controller } from "react-hook-form";
+
+interface LoginForm {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const LoginAuth = () => {
-    alert("aa");
+  const { handleSubmit, control } = useForm<LoginForm>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const LoginAuth = async (data: LoginForm) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+      const user = userCredential.user;
+
+      dispatch(setUserLoggedIn(user));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -20,12 +42,12 @@ const Login = () => {
               <Typography variant="h4" align="center" sx={{ mb: 5 }}>
                 ログイン
               </Typography>
-              <form onSubmit={LoginAuth}>
+              <form onSubmit={handleSubmit(LoginAuth)}>
                 <Stack spacing={2}>
                   <FormLabel>メールアドレス</FormLabel>
-                  <TextField required label="メールアドレス" type="email" />
+                  <Controller name="email" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="email" name="email" required fullWidth id="mail" />} />
                   <FormLabel>パスワード</FormLabel>
-                  <TextField required label="パスワード" type="password" />
+                  <Controller name="password" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="current-password" name="password" required fullWidth id="password" type="password" />} />
                   <Button type="submit" color="primary" variant="contained" size="large" sx={{ color: "white" }}>
                     ログイン
                   </Button>
