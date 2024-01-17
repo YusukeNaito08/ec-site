@@ -3,8 +3,22 @@ import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import logo_favorite from "../../assets/logo_favorite.svg";
 import logo_cart from "../../assets/logo_cart.svg";
+import { useSelector } from "../../redux/store/store";
+import { useDispatch } from "react-redux";
+import { setUserLoggedOut } from "../../redux/users/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.isLoggedIn);
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      dispatch(setUserLoggedOut());
+    });
+  };
+
   return (
     <HeaderWrap>
       <div className="inner">
@@ -13,9 +27,18 @@ const Header = () => {
         </Link>
         <Nav aria-label="グローバルナビゲーション">
           <ul>
-            <li>
-              <Link to={"/Login"}>ログイン</Link>
-            </li>
+            {currentUser ? (
+              <li>
+                <p>{currentUser..email}</p>
+                <Link to={"/"} onClick={handleLogout}>
+                  ログアウト
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to={"/Login"}>ログイン</Link>
+              </li>
+            )}
             <li>
               <Link to={"/Favorites"}>
                 <img src={logo_favorite} alt="お気に入り" loading="lazy" sizes="auto" />

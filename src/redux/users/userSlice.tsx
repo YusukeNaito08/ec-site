@@ -1,13 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface UserData {
+  uid: string;
+  firstName: string;
+  lastName: string;
+  firstNameKana: string;
+  lastNameKana: string;
+  email: string;
+  tel: string;
+  zip: string;
+  prefectures: string;
+  municipalities: string;
+  street: string;
+  apartment: string;
+}
+
 interface UserState {
   isLoggedIn: boolean;
-  userData: string;
+  userData: UserData | null;
 }
 
 const initialState: UserState = {
   isLoggedIn: false,
-  userData: "",
+  userData: null,
 };
 
 const userSlice = createSlice({
@@ -20,7 +35,7 @@ const userSlice = createSlice({
     },
     setUserLoggedOut: (state) => {
       state.isLoggedIn = false;
-      state.userData = "";
+      state.userData = null;
     },
   },
 });
