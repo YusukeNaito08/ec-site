@@ -35,6 +35,7 @@ const Register = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      console.log("OK");
       return docSnap.data();
     } else {
       console.log("NO DATA");
