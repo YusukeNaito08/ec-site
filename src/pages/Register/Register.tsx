@@ -26,19 +26,22 @@ interface RegisterForm {
 }
 
 const Register = () => {
-  const { handleSubmit, control, getValues } = useForm<RegisterForm>();
+  const { handleSubmit, control, getValues, setValue } = useForm<RegisterForm>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchUserData = async (uid: string) => {
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
+    try {
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      console.log("OK");
-      return docSnap.data();
-    } else {
-      console.log("NO DATA");
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        console.log("NO DATA");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -47,10 +50,10 @@ const Register = () => {
       const zip = getValues("zip");
       const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`);
       const data = await response.json();
-      console.log(data);
 
       if (data.results) {
-        getValues(data.results[0].address);
+        setValue("prefectures", data.results[0].address1);
+        setValue("municipalities", `${data.results[0].address2}` + `${data.results[0].address3}`);
       } else {
         console.log("NO Address");
       }
