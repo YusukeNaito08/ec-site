@@ -5,7 +5,7 @@ import { Box, Button, FormLabel, Grid, TextField } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { setUserLoggedIn } from "../../redux/users/userSlice";
 import { useDispatch } from "react-redux";
@@ -30,6 +30,17 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const fetchUserData = async (uid: string) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("NO DATA");
+    }
+  };
+
   const RegisterAuth = async (data: RegisterForm) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -41,7 +52,6 @@ const Register = () => {
         firstNameKana: data.firstNameKana,
         lastNameKana: data.lastNameKana,
         email: data.email,
-        password: data.password,
         tel: data.tel,
         zip: data.zip,
         prefectures: data.prefectures,
@@ -50,7 +60,25 @@ const Register = () => {
         apartment: data.apartment,
       });
 
-      dispatch(setUserLoggedIn(user));
+      const userData = await fetchUserData(user.uid);
+
+      dispatch(
+        setUserLoggedIn({
+          uid: user.uid,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          firstNameKana: data.firstNameKana,
+          lastNameKana: data.lastNameKana,
+          email: data.email,
+          tel: data.tel,
+          zip: data.zip,
+          prefectures: data.prefectures,
+          municipalities: data.municipalities,
+          street: data.street,
+          apartment: data.apartment,
+          ...userData,
+        })
+      );
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -141,3 +169,5 @@ const Register = () => {
 };
 
 export default Register;
+
+/*.exists() と .data() Firebase FirestoreのAPIに属している特定の関数*/

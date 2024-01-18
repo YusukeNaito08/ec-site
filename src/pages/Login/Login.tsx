@@ -7,10 +7,11 @@ import Container from "@mui/material/Container";
 import { FormLabel, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setUserLoggedIn } from "../../redux/users/userSlice";
 import { useForm, Controller } from "react-hook-form";
+import { doc, getDoc } from "firebase/firestore";
 
 interface LoginForm {
   email: string;
@@ -27,7 +28,37 @@ const Login = () => {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
 
-      dispatch(setUserLoggedIn(user));
+      const fetchUserData = async (uid: string) => {
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          return docSnap.data();
+        } else {
+          console.log("NO DATA");
+        }
+      };
+
+      const userData = await fetchUserData(user.uid);
+
+      dispatch(
+        setUserLoggedIn({
+          uid: user.uid,
+          firstName: userData?.firstName,
+          lastName: userData?.lastName,
+          firstNameKana: userData?.firstNameKana,
+          lastNameKana: userData?.lastNameKana,
+          email: userData?.email,
+          tel: userData?.tel,
+          zip: userData?.zip,
+          prefectures: userData?.prefectures,
+          municipalities: userData?.municipalities,
+          street: userData?.street,
+          apartment: userData?.apartment,
+          ...userData,
+        })
+      );
+
       navigate("/");
     } catch (error) {
       console.log(error);

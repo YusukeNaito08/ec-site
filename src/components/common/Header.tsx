@@ -11,8 +11,9 @@ import { auth } from "../../firebase";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.isLoggedIn);
+  const { isLoggedIn, userData } = useSelector((state) => state.user);
 
+  console.log(userData);
   const handleLogout = () => {
     signOut(auth).then(() => {
       dispatch(setUserLoggedOut());
@@ -27,11 +28,11 @@ const Header = () => {
         </Link>
         <Nav aria-label="グローバルナビゲーション">
           <ul>
-            {currentUser ? (
+            {isLoggedIn && userData ? (
               <li>
-                <p>{currentUser..email}</p>
                 <Link to={"/"} onClick={handleLogout}>
                   ログアウト
+                  <span>/ {userData.firstName} </span>
                 </Link>
               </li>
             ) : (
