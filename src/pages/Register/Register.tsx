@@ -26,7 +26,7 @@ interface RegisterForm {
 }
 
 const Register = () => {
-  const { handleSubmit, control } = useForm<RegisterForm>();
+  const { handleSubmit, control, getValues } = useForm<RegisterForm>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,6 +39,23 @@ const Register = () => {
       return docSnap.data();
     } else {
       console.log("NO DATA");
+    }
+  };
+
+  const handleAddressSearch = async () => {
+    try {
+      const zip = getValues("zip");
+      const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`);
+      const data = await response.json();
+      console.log(data);
+
+      if (data.results) {
+        getValues(data.results[0].address);
+      } else {
+        console.log("NO Address");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -137,7 +154,7 @@ const Register = () => {
                   <Controller name="zip" control={control} defaultValue="" render={({ field }) => <TextField {...field} type="tel" required fullWidth id="zip" name="zip" autoComplete="zip" />} />
                 </Grid>
                 <Grid item xs={5} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }}>
+                  <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }} onClick={handleAddressSearch}>
                     住所検索
                   </Button>
                 </Grid>
