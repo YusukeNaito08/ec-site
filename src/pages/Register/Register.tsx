@@ -26,7 +26,13 @@ interface RegisterForm {
 }
 
 const Register = () => {
-  const { handleSubmit, control, getValues, setValue } = useForm<RegisterForm>();
+  const {
+    handleSubmit,
+    control,
+    getValues,
+    setValue,
+    formState: { isValid, isSubmitting },
+  } = useForm<RegisterForm>({ mode: "onChange" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -106,6 +112,57 @@ const Register = () => {
     }
   };
 
+  const validationRules = {
+    name: {
+      required: { value: true, message: "入力必須項目です" },
+      maxLength: { value: 60, message: "60文字以内で入力してください" },
+    },
+    email: {
+      required: { value: true, message: "入力必須項目です" },
+      pattern: {
+        value: /\S+@\S+\.\S+/,
+        message: "メールアドレスの形式が異なります。",
+      },
+      maxLength: { value: 256, message: "256文字以内で入力してください" },
+    },
+    pw: {
+      required: { value: true, message: "入力必須項目です" },
+      pattern: {
+        value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,24}$/i,
+        message: "英数字6桁から24桁でご入力ください",
+      },
+    },
+    tel: {
+      required: { value: true, message: "入力必須項目です" },
+      pattern: {
+        value: /^[0-9]{13}$/,
+        message: "数字13桁でご入力ください",
+      },
+    },
+    zip: {
+      required: { value: true, message: "入力必須項目です" },
+      pattern: {
+        value: /^\d{7}$/,
+        message: "数字7桁で入力してください",
+      },
+    },
+    prefectures: {
+      required: { value: true, message: "入力必須項目です" },
+      maxLength: { value: 4, message: "4文字以内で入力してください" },
+    },
+    municipalities: {
+      required: { value: true, message: "入力必須項目です" },
+      maxLength: { value: 15, message: "15文字以内で入力してください" },
+    },
+    street: {
+      required: { value: true, message: "入力必須項目です" },
+      maxLength: { value: 20, message: "15文字以内で入力してください" },
+    },
+    apartment: {
+      maxLength: { value: 20, message: "15文字以内で入力してください" },
+    },
+  };
+
   return (
     <>
       <Layout>
@@ -121,31 +178,31 @@ const Register = () => {
               <Grid container spacing={2} sx={{ mb: 5 }}>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="firstName">性</FormLabel>
-                  <Controller name="firstName" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="given-name" name="firstName" required fullWidth id="firstName" autoFocus />} />
+                  <Controller name="firstName" control={control} defaultValue="" rules={validationRules.name} render={({ field, fieldState }) => <TextField {...field} name="firstName" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="firstName" />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="lastName">名</FormLabel>
-                  <Controller name="lastName" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="family-name" name="lastName" required fullWidth id="lastName" />} />
+                  <Controller name="lastName" control={control} defaultValue="" rules={validationRules.name} render={({ field, fieldState }) => <TextField {...field} name="lastName" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="lastName" />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="firstNameKana">セイ</FormLabel>
-                  <Controller name="firstNameKana" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="last-name-kana" name="firstNameKana" required fullWidth />} />
+                  <Controller name="firstNameKana" control={control} defaultValue="" rules={validationRules.name} render={({ field, fieldState }) => <TextField {...field} name="firstNameKana" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="lastNameKana">メイ</FormLabel>
-                  <Controller name="lastNameKana" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="family-name-kana" name="lastNameKana" required fullWidth />} />
+                  <Controller name="lastNameKana" control={control} defaultValue="" rules={validationRules.name} render={({ field, fieldState }) => <TextField {...field} name="lastNameKana" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="mail">メールアドレス</FormLabel>
-                  <Controller name="email" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="email" name="email" required fullWidth id="mail" />} />
+                  <Controller name="email" control={control} defaultValue="" rules={validationRules.email} render={({ field, fieldState }) => <TextField {...field} name="email" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="mail" />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="password">パスワード</FormLabel>
-                  <Controller name="password" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="current-password" name="password" required fullWidth id="password" type="password" />} />
+                  <Controller name="password" control={control} defaultValue="" rules={validationRules.pw} render={({ field, fieldState }) => <TextField {...field} autoComplete="current-password" name="password" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="password" type="password" />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="tel">電話番号</FormLabel>
-                  <Controller name="tel" control={control} defaultValue="" render={({ field }) => <TextField {...field} type="tel" required fullWidth id="tel" name="tel" autoComplete="tel" />} />
+                  <Controller name="tel" control={control} defaultValue="" rules={validationRules.tel} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="tel" name="tel" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
               </Grid>
               <Typography variant="h5" gutterBottom>
@@ -154,7 +211,7 @@ const Register = () => {
               <Grid container spacing={2} sx={{ mb: 5 }}>
                 <Grid item xs={7}>
                   <FormLabel htmlFor="zip">郵便番号</FormLabel>
-                  <Controller name="zip" control={control} defaultValue="" render={({ field }) => <TextField {...field} type="tel" required fullWidth id="zip" name="zip" autoComplete="zip" />} />
+                  <Controller name="zip" control={control} defaultValue="" rules={validationRules.zip} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="zip" name="zip" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
                 <Grid item xs={5} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }} onClick={handleAddressSearch}>
@@ -163,22 +220,22 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="prefectures">都道府県</FormLabel>
-                  <Controller name="prefectures" control={control} defaultValue="" render={({ field }) => <TextField {...field} required fullWidth id="prefectures" name="prefectures" autoComplete="pref" />} />
+                  <Controller name="prefectures" control={control} defaultValue="" rules={validationRules.prefectures} render={({ field, fieldState }) => <TextField {...field} fullWidth id="prefectures" name="prefectures" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="municipalities">市区町村</FormLabel>
-                  <Controller name="municipalities" control={control} defaultValue="" render={({ field }) => <TextField {...field} required fullWidth id="municipalities" name="municipalities" autoComplete="municipalities" />} />
+                  <Controller name="municipalities" control={control} defaultValue="" rules={validationRules.municipalities} render={({ field, fieldState }) => <TextField {...field} fullWidth id="municipalities" name="municipalities" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="street">番地</FormLabel>
-                  <Controller name="street" control={control} defaultValue="" render={({ field }) => <TextField {...field} type="tel" required fullWidth id="street" name="street" autoComplete="street" />} />
+                  <Controller name="street" control={control} defaultValue="" rules={validationRules.street} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="street" name="street" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
                 <Grid item xs={6}>
                   <FormLabel htmlFor="apartment">アパート・マンション・部屋番号</FormLabel>
-                  <Controller name="apartment" control={control} defaultValue="" render={({ field }) => <TextField {...field} required fullWidth id="apartment" name="apartment" autoComplete="apartment" />} />
+                  <Controller name="apartment" control={control} defaultValue="" rules={validationRules.apartment} render={({ field, fieldState }) => <TextField {...field} fullWidth id="apartment" name="apartment" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
                 </Grid>
               </Grid>
-              <Button type="submit" color="primary" variant="contained" size="large" sx={{ color: "white", width: "60%;" }}>
+              <Button type="submit" disabled={!isValid || isSubmitting} color="primary" variant="contained" size="large" sx={{ color: "white", width: "60%;" }}>
                 登録する
               </Button>
             </Box>
