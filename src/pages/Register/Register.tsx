@@ -26,18 +26,39 @@ interface RegisterForm {
 }
 
 const Register = () => {
-  const { handleSubmit, control } = useForm<RegisterForm>();
+  const { handleSubmit, control, getValues, setValue } = useForm<RegisterForm>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetchUserData = async (uid: string) => {
-    const docRef = doc(db, "users", uid);
-    const docSnap = await getDoc(docRef);
+    try {
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      console.log("NO DATA");
+      if (docSnap.exists()) {
+        return docSnap.data();
+      } else {
+        console.log("NO DATA");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddressSearch = async () => {
+    try {
+      const zip = getValues("zip");
+      const response = await fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`);
+      const data = await response.json();
+
+      if (data.results) {
+        setValue("prefectures", data.results[0].address1);
+        setValue("municipalities", `${data.results[0].address2}` + `${data.results[0].address3}`);
+      } else {
+        console.log("NO Address");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -136,7 +157,7 @@ const Register = () => {
                   <Controller name="zip" control={control} defaultValue="" render={({ field }) => <TextField {...field} type="tel" required fullWidth id="zip" name="zip" autoComplete="zip" />} />
                 </Grid>
                 <Grid item xs={5} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }}>
+                  <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }} onClick={handleAddressSearch}>
                     住所検索
                   </Button>
                 </Grid>

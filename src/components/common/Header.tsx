@@ -13,7 +13,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, userData } = useSelector((state) => state.user);
 
-  console.log(userData);
   const handleLogout = () => {
     signOut(auth).then(() => {
       dispatch(setUserLoggedOut());
