@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { setUserLoggedIn } from "../../redux/users/userSlice";
 import { useForm, Controller } from "react-hook-form";
 import { doc, getDoc } from "firebase/firestore";
+import { useValidationRules } from "../../hooks/useValidationRules";
 
 interface LoginForm {
   email: string;
@@ -19,9 +20,10 @@ interface LoginForm {
 }
 
 const Login = () => {
-  const { handleSubmit, control } = useForm<LoginForm>();
+  const { handleSubmit, control } = useForm<LoginForm>({ mode: "onChange" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ValidationRules = useValidationRules();
 
   const LoginAuth = async (data: LoginForm) => {
     try {
@@ -75,10 +77,10 @@ const Login = () => {
               </Typography>
               <form onSubmit={handleSubmit(LoginAuth)}>
                 <Stack spacing={2}>
-                  <FormLabel>メールアドレス</FormLabel>
-                  <Controller name="email" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="email" name="email" required fullWidth id="mail" />} />
-                  <FormLabel>パスワード</FormLabel>
-                  <Controller name="password" control={control} defaultValue="" render={({ field }) => <TextField {...field} autoComplete="current-password" name="password" required fullWidth id="password" type="password" />} />
+                  <FormLabel htmlFor="mail">メールアドレス</FormLabel>
+                  <Controller name="email" control={control} defaultValue="" rules={ValidationRules.email} render={({ field, fieldState }) => <TextField {...field} name="email" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="mail" />} />
+                  <FormLabel htmlFor="password">パスワード</FormLabel>
+                  <Controller name="password" control={control} defaultValue="" rules={ValidationRules.pw} render={({ field, fieldState }) => <TextField {...field} autoComplete="current-password" name="password" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="password" type="password" />} />
                   <Button type="submit" color="primary" variant="contained" size="large" sx={{ color: "white" }}>
                     ログイン
                   </Button>
