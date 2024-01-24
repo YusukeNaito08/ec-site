@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Layout from "../../components/layout/Layout";
-import productsSample from "../../assets/productsSample.png";
+import Products from "./Products";
 
-const ProductList = () => {
+const Index = () => {
   return (
     <>
       <Layout>
@@ -120,7 +120,7 @@ const ProductList = () => {
                 </div>
               </div>
             </Sidebar>
-            <Cards>
+            <CardList>
               <div>
                 <Sort>
                   <select
@@ -130,48 +130,7 @@ const ProductList = () => {
                     <option value="">並び替え</option>
                   </select>
                 </Sort>
-                <div className="cardsWrap">
-                  <Card>
-                    <div className="imgWrap">
-                      <img
-                        src={productsSample}
-                        alt=""
-                      />
-                    </div>
-                    <h4 className="title"> タイトル</h4>
-                    <p className="price">¥1,200</p>
-                  </Card>
-                  <Card>
-                    <div className="imgWrap">
-                      <img
-                        src={productsSample}
-                        alt=""
-                      />
-                    </div>
-                    <h4 className="title"> タイトル</h4>
-                    <p className="price">¥1,200</p>
-                  </Card>
-                  <Card>
-                    <div className="imgWrap">
-                      <img
-                        src={productsSample}
-                        alt=""
-                      />
-                    </div>
-                    <h4 className="title"> タイトル</h4>
-                    <p className="price">¥1,200</p>
-                  </Card>
-                  <Card>
-                    <div className="imgWrap">
-                      <img
-                        src={productsSample}
-                        alt=""
-                      />
-                    </div>
-                    <h4 className="title"> タイトル</h4>
-                    <p className="price">¥1,200</p>
-                  </Card>
-                </div>
+                <Products />
                 <Pagination>
                   <a href="#">
                     <span>&laquo;</span>
@@ -187,7 +146,7 @@ const ProductList = () => {
                   </a>
                 </Pagination>
               </div>
-            </Cards>
+            </CardList>
           </div>
         </ProductLists>
       </Layout>
@@ -203,8 +162,6 @@ const Hero = styled.div`
 
 const ProductLists = styled.div`
   & .inner {
-    width: 85%;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-areas:
@@ -300,7 +257,7 @@ const Sidebar = styled.div`
   }
 `;
 
-const Cards = styled.div`
+const CardList = styled.div`
   grid-area: Cards;
   width: 100%;
 
@@ -330,38 +287,6 @@ const Sort = styled.div`
   }
 `;
 
-const Card = styled.div`
-  width: calc((100% / 3) - 4.8rem);
-
-  & .imgWrap {
-    margin-bottom: 1.6rem;
-  }
-
-  & .title {
-    font-size: 1.4rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 2.1rem;
-    margin-bottom: 0.8rem;
-  }
-
-  & .price {
-    font-size: 1.8rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 2.7rem;
-
-    &::after {
-      content: "(税込)";
-      display: inline-block;
-      font-size: 1.2rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.8rem;
-    }
-  }
-`;
-
 const Pagination = styled.div`
   display: inline-flex;
   justify-content: center;
@@ -384,4 +309,4 @@ const Pagination = styled.div`
   }
 `;
 
-export default ProductList;
+export default Index;
