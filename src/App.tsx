@@ -65,6 +65,7 @@ const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
     height: 100%;
+    font-family: Roboto, arial, helvetica;
   }
 
   body {

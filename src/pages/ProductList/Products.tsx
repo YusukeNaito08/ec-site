@@ -14,7 +14,7 @@ const Cards = () => {
               <Link to={`/product/${product.id}`}>
                 <div className="imgWrap">
                   <img
-                    src={product.imageUrl}
+                    src={product.imageUrl[0]}
                     alt={product.name}
                   />
                 </div>

@@ -1,9 +1,20 @@
 import { useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import styled from "styled-components";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { Button } from "@mui/material";
+
+import { Swiper as SwiperClass } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Thumbs, Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
 //仮でお気に入り画像使用の為、インポート
 import test from "/src/assets/productsSample.png";
 
@@ -11,6 +22,9 @@ const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const products = useSelector((state: RootState) => state.products);
   const product = products.find((p) => p.id === productId);
+
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
+
   return (
     <>
       <Layout>
@@ -27,10 +41,52 @@ const ProductDetail = () => {
             {product && (
               <>
                 <ImageBlock>
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                  />
+                  <Swiper
+                    modules={[Navigation, Thumbs]}
+                    loop={true}
+                    slidesPerView={1}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    grabCursor={true}
+                    navigation={true}
+                    className="mySwiper2"
+                  >
+                    <SwiperSlide>
+                      <img src={product.imageUrl[0]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[1]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[2]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[3]} />
+                    </SwiperSlide>
+                  </Swiper>
+                  <Swiper
+                    loop={false}
+                    grabCursor={true}
+                    spaceBetween={10}
+                    slidesPerView={4}
+                    modules={[Navigation, Thumbs]}
+                    onSwiper={setThumbsSwiper}
+                    className="mySwiper"
+                  >
+                    <SwiperSlide>
+                      <img src={product.imageUrl[0]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[1]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[2]} />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <img src={product.imageUrl[3]} />
+                    </SwiperSlide>
+                  </Swiper>
                 </ImageBlock>
                 <DetailBlock>
                   <div className="head">
@@ -38,8 +94,8 @@ const ProductDetail = () => {
                     <p>￥{product.price}</p>
                   </div>
                   <div className="sizes">
-                    <p>サイズ</p>
-                    <div className="buttons">
+                    <p className="sizes__title">サイズ</p>
+                    <div className="sizes__buttons">
                       <button>XS</button>
                       <button>S</button>
                       <button>M</button>
@@ -51,8 +107,7 @@ const ProductDetail = () => {
                       type="button"
                       color="primary"
                       variant="contained"
-                      size="large"
-                      sx={{ color: "white", width: "60%;" }}
+                      size="medium"
                     >
                       カートに追加
                     </Button>
@@ -60,8 +115,7 @@ const ProductDetail = () => {
                       type="button"
                       color="primary"
                       variant="contained"
-                      size="large"
-                      sx={{ color: "white", width: "60%;" }}
+                      size="medium"
                     >
                       お気に入りに追加♡
                     </Button>
@@ -142,6 +196,7 @@ const Bread = styled.div`
 `;
 const ImageBlock = styled.div`
   grid-area: ImageBlock;
+  width: 600px;
 `;
 const DetailBlock = styled.div`
   grid-area: DetailBlock;
@@ -150,6 +205,7 @@ const DetailBlock = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    margin-bottom: 3.2rem;
     & h2 {
       font-size: 2.4rem;
       font-weight: 700;
@@ -171,12 +227,80 @@ const DetailBlock = styled.div`
       }
     }
   }
+
+  & .sizes {
+    margin-bottom: 3.2rem;
+    &__title {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 2.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    &__buttons {
+      display: flex;
+      align-items: flex-start;
+      align-content: flex-start;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+
+      & button {
+        display: flex;
+        width: 6.4rem;
+        padding: 0.4rem 1.2rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+        flex-shrink: 0;
+        border-radius: 0.4rem;
+        border: 1px solid #444;
+        background-color: #fff;
+      }
+    }
+  }
+
+  & .adds {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 3.2rem;
+    & button {
+      display: flex;
+      width: 37rem;
+      padding: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 2.4rem;
+      color: #fff;
+      border-radius: 0.8rem;
+    }
+  }
 `;
+
 const Favorite = styled.div`
   grid-area: Favorite;
+  margin-top: 8rem;
+
+  & h3 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    margin-bottom: 4.8rem;
+  }
 
   & .images {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 6.4rem;
+
+    & img {
+      width: calc((100% / 3) - 6.4rem);
+    }
   }
 `;
 
