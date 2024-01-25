@@ -6,14 +6,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { Button } from "@mui/material";
 
+//Swiper
 import { Swiper as SwiperClass } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs, Navigation } from "swiper/modules";
-
+//Swiper Css
 import "swiper/css";
-import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import "swiper/css/thumbs";
+import "swiper/css/mousewheel";
+import "swiper/css/autoplay";
 
 //仮でお気に入り画像使用の為、インポート
 import test from "/src/assets/productsSample.png";
@@ -48,6 +52,9 @@ const ProductDetail = () => {
                     pagination={{
                       clickable: true,
                     }}
+                    thumbs={{
+                      swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+                    }}
                     grabCursor={true}
                     navigation={true}
                     className="mySwiper2"
@@ -61,15 +68,12 @@ const ProductDetail = () => {
                     <SwiperSlide>
                       <img src={product.imageUrl[2]} />
                     </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[3]} />
-                    </SwiperSlide>
                   </Swiper>
                   <Swiper
                     loop={false}
                     grabCursor={true}
                     spaceBetween={10}
-                    slidesPerView={4}
+                    slidesPerView={3}
                     modules={[Navigation, Thumbs]}
                     onSwiper={setThumbsSwiper}
                     className="mySwiper"
@@ -82,9 +86,6 @@ const ProductDetail = () => {
                     </SwiperSlide>
                     <SwiperSlide>
                       <img src={product.imageUrl[2]} />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[3]} />
                     </SwiperSlide>
                   </Swiper>
                 </ImageBlock>
@@ -196,7 +197,7 @@ const Bread = styled.div`
 `;
 const ImageBlock = styled.div`
   grid-area: ImageBlock;
-  width: 600px;
+  width: 54.5rem;
 `;
 const DetailBlock = styled.div`
   grid-area: DetailBlock;
