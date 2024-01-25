@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductList from "./pages/ProductList/ProductList";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import ProductList from "./pages/ProductList/Index";
+import ProductDetail from "./pages/ProductDetail/Index";
 import Favorites from "./pages/Favorites/Favorites";
 import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
@@ -17,15 +17,42 @@ function App() {
       <GlobalStyles />
       <Router>
         <Routes>
-          <Route path="/" element={<ProductList />} />
-          <Route path="/product/:productId" element={<ProductDetail />} />
-          <Route path="/favorites/" element={<Favorites />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/complete" element={<OrderComplete />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Notfound />} />
+          <Route
+            path="/"
+            element={<ProductList />}
+          />
+          <Route
+            path="/product/:productId"
+            element={<ProductDetail />}
+          />
+          <Route
+            path="/favorites/"
+            element={<Favorites />}
+          />
+          <Route
+            path="/cart"
+            element={<Cart />}
+          />
+          <Route
+            path="/checkout"
+            element={<Checkout />}
+          />
+          <Route
+            path="/complete"
+            element={<OrderComplete />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+          <Route
+            path="*"
+            element={<Notfound />}
+          />
         </Routes>
       </Router>
     </>
@@ -38,6 +65,7 @@ const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
     height: 100%;
+    font-family: Roboto, arial, helvetica;
   }
 
   body {
@@ -57,6 +85,12 @@ const GlobalStyles = createGlobalStyle`
   img {
     width: 100%;
     height: auto;
+  }
+
+
+  .inner {
+    width: 85%;
+    margin: 0 auto;
   }
 
 `;

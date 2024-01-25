@@ -70,32 +70,99 @@ const Login = () => {
     <>
       <Layout>
         <Container sx={{ pt: 10 }}>
-          <Grid container justifyContent="space-evenly" columns={12}>
-            <Grid item xs={5} sx={{ bgcolor: "#F7F7F7", padding: "2rem 4rem", borderRadius: "1rem" }}>
-              <Typography variant="h4" align="center" sx={{ mb: 5 }}>
+          <Grid
+            container
+            justifyContent="space-evenly"
+            columns={12}
+          >
+            <Grid
+              item
+              xs={5}
+              sx={{ bgcolor: "#F7F7F7", padding: "2rem 4rem", borderRadius: "1rem" }}
+            >
+              <Typography
+                variant="h4"
+                align="center"
+                sx={{ mb: 5 }}
+              >
                 ログイン
               </Typography>
               <form onSubmit={handleSubmit(LoginAuth)}>
                 <Stack spacing={2}>
                   <FormLabel htmlFor="mail">メールアドレス</FormLabel>
-                  <Controller name="email" control={control} defaultValue="" rules={ValidationRules.email} render={({ field, fieldState }) => <TextField {...field} name="email" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="mail" />} />
+                  <Controller
+                    name="email"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.email}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="email"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="mail"
+                      />
+                    )}
+                  />
                   <FormLabel htmlFor="password">パスワード</FormLabel>
-                  <Controller name="password" control={control} defaultValue="" rules={ValidationRules.pw} render={({ field, fieldState }) => <TextField {...field} autoComplete="current-password" name="password" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="password" type="password" />} />
-                  <Button type="submit" color="primary" variant="contained" size="large" sx={{ color: "white" }}>
+                  <Controller
+                    name="password"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.pw}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        autoComplete="current-password"
+                        name="password"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="password"
+                        type="password"
+                      />
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    sx={{ color: "white" }}
+                  >
                     ログイン
                   </Button>
                 </Stack>
-                <Typography variant="subtitle1" sx={{ mt: 1 }} align="center">
+                <Typography
+                  variant="subtitle1"
+                  sx={{ mt: 1 }}
+                  align="center"
+                >
                   パスワードを忘れた方はこちら
                 </Typography>
               </form>
             </Grid>
-            <Grid item xs={5}>
-              <Typography variant="h4" align="center" sx={{ mb: 5 }}>
+            <Grid
+              item
+              xs={5}
+            >
+              <Typography
+                variant="h4"
+                align="center"
+                sx={{ mb: 5 }}
+              >
                 はじめてご利用の方
               </Typography>
               <Stack>
-                <Button variant="contained" size="large" sx={{ color: "white" }} component={Link} to={"/register"}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{ color: "white" }}
+                  component={Link}
+                  to={"/register"}
+                >
                   新規会員登録
                 </Button>
               </Stack>

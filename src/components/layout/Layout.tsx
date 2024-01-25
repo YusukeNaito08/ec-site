@@ -12,9 +12,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     <>
       <ThemeProvider theme={theme}>
         <Header />
-        <Main>
-          <div className="inner">{children}</div>
-        </Main>
+        <Main>{children}</Main>
         <Footer />
       </ThemeProvider>
     </>
@@ -23,11 +21,6 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 const Main = styled.main`
   width: 100%;
-
-  & .inner {
-    width: 90%;
-    margin: 0 auto;
-  }
 `;
 
 const theme = createTheme({

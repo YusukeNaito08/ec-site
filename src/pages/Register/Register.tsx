@@ -119,75 +119,330 @@ const Register = () => {
     <>
       <Layout>
         <Container sx={{ pt: 10, pb: 10 }}>
-          <Typography variant="h5" gutterBottom sx={{ padding: "0 0 0 4rem" }}>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ padding: "0 0 0 4rem" }}
+          >
             新規会員登録
           </Typography>
           <form onSubmit={handleSubmit(RegisterAuth)}>
             <Box sx={{ bgcolor: "#F7F7F7", padding: "2rem 4rem", width: "60%" }}>
-              <Typography variant="h5" gutterBottom>
+              <Typography
+                variant="h5"
+                gutterBottom
+              >
                 アカウント情報
               </Typography>
-              <Grid container spacing={2} sx={{ mb: 5 }}>
-                <Grid item xs={6}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ mb: 5 }}
+              >
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="firstName">性</FormLabel>
-                  <Controller name="firstName" control={control} defaultValue="" rules={ValidationRules.name} render={({ field, fieldState }) => <TextField {...field} name="firstName" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="firstName" />} />
+
+                  <Controller
+                    name="firstName"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.name}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="firstName"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="firstName"
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="lastName">名</FormLabel>
-                  <Controller name="lastName" control={control} defaultValue="" rules={ValidationRules.name} render={({ field, fieldState }) => <TextField {...field} name="lastName" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="lastName" />} />
+                  <Controller
+                    name="lastName"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.name}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="lastName"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="lastName"
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="firstNameKana">セイ</FormLabel>
-                  <Controller name="firstNameKana" control={control} defaultValue="" rules={ValidationRules.name} render={({ field, fieldState }) => <TextField {...field} name="firstNameKana" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth />} />
+                  <Controller
+                    name="firstNameKana"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.name}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="firstNameKana"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="lastNameKana">メイ</FormLabel>
-                  <Controller name="lastNameKana" control={control} defaultValue="" rules={ValidationRules.name} render={({ field, fieldState }) => <TextField {...field} name="lastNameKana" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth />} />
+                  <Controller
+                    name="lastNameKana"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.name}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="lastNameKana"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="mail">メールアドレス</FormLabel>
-                  <Controller name="email" control={control} defaultValue="" rules={ValidationRules.email} render={({ field, fieldState }) => <TextField {...field} name="email" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="mail" />} />
+                  <Controller
+                    name="email"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.email}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        name="email"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="mail"
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="password">パスワード</FormLabel>
-                  <Controller name="password" control={control} defaultValue="" rules={ValidationRules.pw} render={({ field, fieldState }) => <TextField {...field} autoComplete="current-password" name="password" error={fieldState.invalid} helperText={fieldState.error?.message} fullWidth id="password" type="password" />} />
+                  <Controller
+                    name="password"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.pw}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        autoComplete="current-password"
+                        name="password"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                        fullWidth
+                        id="password"
+                        type="password"
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="tel">電話番号</FormLabel>
-                  <Controller name="tel" control={control} defaultValue="" rules={ValidationRules.tel} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="tel" name="tel" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="tel"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.tel}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        type="tel"
+                        fullWidth
+                        id="tel"
+                        name="tel"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
               </Grid>
-              <Typography variant="h5" gutterBottom>
+              <Typography
+                variant="h5"
+                gutterBottom
+              >
                 お届け先
               </Typography>
-              <Grid container spacing={2} sx={{ mb: 5 }}>
-                <Grid item xs={7}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ mb: 5 }}
+              >
+                <Grid
+                  item
+                  xs={7}
+                >
                   <FormLabel htmlFor="zip">郵便番号</FormLabel>
-                  <Controller name="zip" control={control} defaultValue="" rules={ValidationRules.zip} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="zip" name="zip" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="zip"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.zip}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        type="tel"
+                        fullWidth
+                        id="zip"
+                        name="zip"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={5} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Button color="primary" variant="contained" size="large" sx={{ color: "white", width: "100%;" }} onClick={handleAddressSearch}>
+                <Grid
+                  item
+                  xs={5}
+                  sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="large"
+                    sx={{ color: "white", width: "100%;" }}
+                    onClick={handleAddressSearch}
+                  >
                     住所検索
                   </Button>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="prefectures">都道府県</FormLabel>
-                  <Controller name="prefectures" control={control} defaultValue="" rules={ValidationRules.prefectures} render={({ field, fieldState }) => <TextField {...field} fullWidth id="prefectures" name="prefectures" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="prefectures"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.prefectures}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        id="prefectures"
+                        name="prefectures"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="municipalities">市区町村</FormLabel>
-                  <Controller name="municipalities" control={control} defaultValue="" rules={ValidationRules.municipalities} render={({ field, fieldState }) => <TextField {...field} fullWidth id="municipalities" name="municipalities" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="municipalities"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.municipalities}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        id="municipalities"
+                        name="municipalities"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="street">番地</FormLabel>
-                  <Controller name="street" control={control} defaultValue="" rules={ValidationRules.street} render={({ field, fieldState }) => <TextField {...field} type="tel" fullWidth id="street" name="street" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="street"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.street}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        type="tel"
+                        fullWidth
+                        id="street"
+                        name="street"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid
+                  item
+                  xs={6}
+                >
                   <FormLabel htmlFor="apartment">アパート・マンション・部屋番号</FormLabel>
-                  <Controller name="apartment" control={control} defaultValue="" rules={ValidationRules.apartment} render={({ field, fieldState }) => <TextField {...field} fullWidth id="apartment" name="apartment" error={fieldState.invalid} helperText={fieldState.error?.message} />} />
+                  <Controller
+                    name="apartment"
+                    control={control}
+                    defaultValue=""
+                    rules={ValidationRules.apartment}
+                    render={({ field, fieldState }) => (
+                      <TextField
+                        {...field}
+                        fullWidth
+                        id="apartment"
+                        name="apartment"
+                        error={fieldState.invalid}
+                        helperText={fieldState.error?.message}
+                      />
+                    )}
+                  />
                 </Grid>
               </Grid>
-              <Button type="submit" disabled={!isValid || isSubmitting} color="primary" variant="contained" size="large" sx={{ color: "white", width: "60%;" }}>
+              <Button
+                type="submit"
+                disabled={!isValid || isSubmitting}
+                color="primary"
+                variant="contained"
+                size="large"
+                sx={{ color: "white", width: "60%;" }}
+              >
                 登録する
               </Button>
             </Box>
