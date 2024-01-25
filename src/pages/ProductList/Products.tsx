@@ -9,14 +9,18 @@ const Cards = () => {
     <div>
       <div className="cardsWrap">
         {products.map((product) => {
+          const defaultImage = product.imageUrl?.find((img) => img.default);
+
           return (
             <Card key={product.id}>
               <Link to={`/product/${product.id}`}>
                 <div className="imgWrap">
-                  <img
-                    src={product.imageUrl[0]}
-                    alt={product.name}
-                  />
+                  {defaultImage && (
+                    <img
+                      src={defaultImage.img}
+                      alt={product.name}
+                    />
+                  )}
                 </div>
                 <h4 className="name">{product.name}</h4>
                 <p className="price">￥{product.price}</p>

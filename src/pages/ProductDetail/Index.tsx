@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import styled from "styled-components";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { Button } from "@mui/material";
@@ -28,6 +28,12 @@ const ProductDetail = () => {
   const product = products.find((p) => p.id === productId);
 
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
+  const [selectedValue, setSelectedValue] = useState<string>("");
+
+  const handleSelect = (event: { target: { value: SetStateAction<string> } }) => {
+    setSelectedValue(event.target.value);
+    console.log(event.target.value);
+  };
 
   return (
     <>
@@ -59,15 +65,16 @@ const ProductDetail = () => {
                     navigation={true}
                     className="mySwiper2"
                   >
-                    <SwiperSlide>
-                      <img src={product.imageUrl[0]} />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[1]} />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[2]} />
-                    </SwiperSlide>
+                    {product.imageUrl?.map((p, index) => {
+                      return (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={p.img}
+                            alt={product.name}
+                          />
+                        </SwiperSlide>
+                      );
+                    })}
                   </Swiper>
                   <Swiper
                     loop={false}
@@ -78,15 +85,16 @@ const ProductDetail = () => {
                     onSwiper={setThumbsSwiper}
                     className="mySwiper"
                   >
-                    <SwiperSlide>
-                      <img src={product.imageUrl[0]} />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[1]} />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <img src={product.imageUrl[2]} />
-                    </SwiperSlide>
+                    {product.imageUrl?.map((p, index) => {
+                      return (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={p.img}
+                            alt={product.name}
+                          />
+                        </SwiperSlide>
+                      );
+                    })}
                   </Swiper>
                 </ImageBlock>
                 <DetailBlock>
@@ -96,11 +104,23 @@ const ProductDetail = () => {
                   </div>
                   <div className="sizes">
                     <p className="sizes__title">サイズ</p>
-                    <div className="sizes__buttons">
-                      <button>XS</button>
-                      <button>S</button>
-                      <button>M</button>
-                      <button>L</button>
+                    <div className="sizes__radios">
+                      {product.sizes.map((s) => {
+                        return (
+                          <div className="sizes__radios__radio">
+                            <label className={selectedValue === s ? "checked" : ""}>
+                              <input
+                                type="radio"
+                                onChange={handleSelect}
+                                checked={selectedValue == s}
+                                value={s}
+                                name="size"
+                              />
+                              {s}
+                            </label>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                   <div className="adds">
@@ -238,25 +258,37 @@ const DetailBlock = styled.div`
       margin-bottom: 0.8rem;
     }
 
-    &__buttons {
+    &__radios {
       display: flex;
       align-items: flex-start;
       align-content: flex-start;
       gap: 1.2rem;
       flex-wrap: wrap;
 
-      & button {
-        display: flex;
-        width: 6.4rem;
-        padding: 0.4rem 1.2rem;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.8rem;
-        flex-shrink: 0;
-        border-radius: 0.4rem;
-        border: 1px solid #444;
-        background-color: #fff;
+      &__radio {
+        & input {
+          appearance: none;
+          outline: none;
+        }
+
+        & label {
+          display: flex;
+          padding: 0.4rem 1.2rem;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 0.8rem;
+          flex-shrink: 0;
+          border-radius: 0.4rem;
+          border: 1px solid #444;
+          background-color: #fff;
+          width: 6.4rem;
+
+          &.checked {
+            background-color: #444;
+            color: #fff;
+          }
+        }
       }
     }
   }

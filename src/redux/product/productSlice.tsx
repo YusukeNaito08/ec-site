@@ -4,16 +4,66 @@ interface ProductState {
   id: string;
   name: string;
   price: number;
-  imageUrl: string[];
+  imageUrl?: img[];
   category: string;
+  sizes: string[];
+}
+
+interface img {
+  img: string;
+  default: boolean;
 }
 
 //仮データ
 const initialState: ProductState[] = [
-  { id: "1", name: "商品1", price: 1000, imageUrl: ["/src/assets/productsSample.png", "/src/assets/productsSample2.png", "/src/assets/productsSample.png"], category: "レディース" },
-  { id: "2", name: "商品2", price: 2000, imageUrl: ["/src/assets/productsSample.png", "/src/assets/productsSample.png", "/src/assets/productsSample.png"], category: "レディース" },
-  { id: "3", name: "商品3", price: 2000, imageUrl: ["/src/assets/productsSample.png", "/src/assets/productsSample.png", "/src/assets/productsSample.png"], category: "レディース" },
-  { id: "4", name: "商品4", price: 2000, imageUrl: ["/src/assets/productsSample.png", "/src/assets/productsSample.png", "/src/assets/productsSample.png"], category: "レディース" },
+  {
+    id: "1",
+    name: "商品1",
+    price: 1000,
+    imageUrl: [
+      { img: "/src/assets/productsSample.png", default: true },
+      { img: "/src/assets/productsSample2.png", default: false },
+      { img: "/src/assets/productsSample.png", default: false },
+    ],
+    category: "レディース",
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  {
+    id: "2",
+    name: "商品2",
+    price: 2000,
+    imageUrl: [
+      { img: "/src/assets/productsSample.png", default: true },
+      { img: "/src/assets/productsSample2.png", default: false },
+      { img: "/src/assets/productsSample.png", default: false },
+    ],
+    category: "レディース",
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  {
+    id: "3",
+    name: "商品3",
+    price: 2000,
+    imageUrl: [
+      { img: "/src/assets/productsSample.png", default: true },
+      { img: "/src/assets/productsSample2.png", default: false },
+      { img: "/src/assets/productsSample.png", default: false },
+    ],
+    category: "レディース",
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
+  {
+    id: "4",
+    name: "商品4",
+    price: 2000,
+    imageUrl: [
+      { img: "/src/assets/productsSample.png", default: true },
+      { img: "/src/assets/productsSample2.png", default: false },
+      { img: "/src/assets/productsSample.png", default: false },
+    ],
+    category: "レディース",
+    sizes: ["XS", "S", "M", "L", "XL"],
+  },
 ];
 
 const productSlice = createSlice({
